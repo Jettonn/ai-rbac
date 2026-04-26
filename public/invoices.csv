@@ -1,0 +1,51 @@
+id,customer,amount,status,created_by,created_at
+1,Acme Corp,2400,paid,4,2026-02-03
+2,Stellar,1800,paid,4,2026-02-12
+3,Nova Health,3200,paid,5,2026-02-05
+4,Patchwork,950,paid,5,2026-02-19
+5,Luna Skincare,1200,overdue,6,2026-02-08
+6,Pinecone Labs,4500,paid,6,2026-02-22
+7,Vortex Studios,2100,paid,7,2026-02-14
+8,Acme Corp,1500,paid,7,2026-02-27
+9,Stellar,900,paid,8,2026-02-09
+10,Nova Health,2200,paid,8,2026-02-25
+11,Patchwork,1700,paid,9,2026-02-11
+12,Luna Skincare,1300,overdue,9,2026-02-18
+13,Pinecone Labs,3800,paid,10,2026-02-06
+14,Vortex Studios,1100,paid,10,2026-02-21
+15,Acme Corp,2900,paid,4,2026-03-04
+16,Stellar,1600,paid,4,2026-03-15
+17,Nova Health,2700,sent,5,2026-03-09
+18,Patchwork,1400,paid,5,2026-03-20
+19,Luna Skincare,800,paid,6,2026-03-02
+20,Pinecone Labs,5200,sent,6,2026-03-17
+21,Vortex Studios,1900,paid,7,2026-03-11
+22,Acme Corp,2300,sent,7,2026-03-23
+23,Stellar,1050,paid,8,2026-03-06
+24,Nova Health,3500,sent,8,2026-03-19
+25,Patchwork,1250,overdue,9,2026-03-13
+26,Luna Skincare,1750,paid,9,2026-03-25
+27,Pinecone Labs,4100,paid,10,2026-03-08
+28,Vortex Studios,2600,sent,10,2026-03-22
+29,Acme Corp,1850,paid,2,2026-03-14
+30,Nova Health,3300,paid,1,2026-03-28
+31,Acme Corp,2200,sent,4,2026-04-02
+32,Stellar,1400,draft,4,2026-04-23
+33,Nova Health,2900,sent,5,2026-04-05
+34,Patchwork,1100,draft,5,2026-04-22
+35,Luna Skincare,950,sent,6,2026-04-08
+36,Pinecone Labs,4800,sent,6,2026-04-12
+37,Vortex Studios,1700,paid,7,2026-04-04
+38,Acme Corp,2050,draft,7,2026-04-25
+39,Stellar,800,sent,8,2026-04-10
+40,Nova Health,3100,draft,8,2026-04-26
+41,Patchwork,1600,sent,9,2026-04-07
+42,Luna Skincare,1200,paid,9,2026-04-15
+43,Pinecone Labs,3700,sent,10,2026-04-11
+44,Vortex Studios,2400,draft,10,2026-04-24
+45,Acme Corp,1300,sent,5,2026-04-18
+46,Stellar,2700,paid,6,2026-04-09
+47,Nova Health,1900,sent,7,2026-04-16
+48,Patchwork,1450,draft,8,2026-04-26
+49,Luna Skincare,2100,sent,9,2026-04-13
+50,Pinecone Labs,2800,paid,10,2026-04-19
