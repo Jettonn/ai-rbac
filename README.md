@@ -68,7 +68,7 @@ Six numbered spots in three files. Search the codebase for `LIVE-CODE` to find t
 Top-right of the header, switch between:
 
 - **Sarah Chen** (admin) — sees everything, but cannot delete other people's invoices
-- **Daniel / Marko** (accountant) — see all invoices including drafts, can approve
+- **Daniel / Amelia** (accountant) — see all invoices including drafts, can approve
 - **Alice / Ben / David / Elena / Grace / Hassan / Iva** (employee) — see only their own
 
 Then ask the agent to *"list invoices"*, *"create an invoice for Acme for $1500"*, *"monthly report 2026-03"*, *"forward report to accountant"*, etc.

@@ -204,7 +204,7 @@ Sot do të ndërtojmë **kontroll qasjeje** për një agjent AI që menaxhon fat
 ### Aktorët
 
 - **Sarah Chen** — admin
-- **Daniel, Marko** — accountant
+- **Daniel, Amelia** — accountant
 - **Alice, Ben, …** — employee
 - **Agjenti AI** — vepron për llogari të secilit
 

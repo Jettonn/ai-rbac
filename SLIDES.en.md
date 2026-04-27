@@ -203,7 +203,7 @@ Today we'll build **access control** for an AI agent that manages invoices.
 ### Actors
 
 - **Sarah Chen** — admin
-- **Daniel, Marko** — accountant
+- **Daniel, Amelia** — accountant
 - **Alice, Ben, …** — employee
 - **AI agent** — acts on each user's behalf
 
