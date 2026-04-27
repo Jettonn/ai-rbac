@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -59,15 +59,25 @@ function emailApiPlugin() {
   }
 }
 
-export default defineConfig({
-  plugins: [vue(), tailwindcss(), emailApiPlugin()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+export default defineConfig(({ mode }) => {
+  // Vite only injects VITE_* into import.meta.env. Server-side middleware
+  // (the /api/send-email plugin below) reads process.env, so we have to
+  // load .env explicitly and merge non-VITE_ vars in.
+  const env = loadEnv(mode, process.cwd(), '')
+  for (const key of ['RESEND_API_KEY', 'FORWARD_TO', 'PORT']) {
+    if (env[key] && !process.env[key]) process.env[key] = env[key]
+  }
+
+  return {
+    plugins: [vue(), tailwindcss(), emailApiPlugin()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
     },
-  },
-  server: {
-    port: process.env.PORT ? Number(process.env.PORT) : 5173,
-    strictPort: false,
-  },
+    server: {
+      port: process.env.PORT ? Number(process.env.PORT) : 5173,
+      strictPort: false,
+    },
+  }
 })
