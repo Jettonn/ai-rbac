@@ -105,7 +105,7 @@ export function useAgent() {
   }
 
   // ─── The two-layer guard + dispatch ────────────────────────────────────
-  function dispatch(name: string, args: Record<string, unknown>, currentUser: User) {
+  async function dispatch(name: string, args: Record<string, unknown>, currentUser: User) {
     log('tool', `tool_use: ${name}(${JSON.stringify(args)})`)
     const tool = findTool(name)
     if (!tool) {
@@ -149,7 +149,7 @@ export function useAgent() {
         result = monthlyReport(args as { month?: string })
         break
       case 'forward_report_to_accountant':
-        result = forwardReportToAccountant(args as { month?: string })
+        result = await forwardReportToAccountant(args as { month?: string })
         break
       default:
         result = { ok: false as const, error: `No handler for ${name}` }
@@ -179,7 +179,7 @@ export function useAgent() {
     if (!hasKey) {
       log('thinking', '// no API key — using fake-mode router')
       const route = fakeRoute(userMessage)
-      if (route) dispatch(route.name, route.args, currentUser)
+      if (route) await dispatch(route.name, route.args, currentUser)
       else
         log('agent', `(fake mode) Try: "list invoices", "create invoice for Acme for $1500", "monthly report 2026-04", "forward report to accountant".`)
       isLoading.value = false
@@ -219,7 +219,7 @@ export function useAgent() {
           } catch {
             args = {}
           }
-          const result = dispatch(call.function.name, args, currentUser)
+          const result = await dispatch(call.function.name, args, currentUser)
           history.value.push({
             role: 'tool',
             tool_call_id: call.id,

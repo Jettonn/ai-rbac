@@ -80,12 +80,16 @@ Today we'll build **access control** for an AI agent that manages invoices.
 <ul class="agenda">
 <li>1. Authentication vs Authorization</li>
 <li>2. Project Overview — what we're building</li>
-<li>3. RBAC — Role-Based Access Control</li>
+<li>3. RBAC — concept <em>+ live coding</em></li>
 <li>4. Where RBAC breaks</li>
-<li>5. ABAC — Attribute-Based Access Control</li>
-<li>6. AI Tools — how LLM tool-calling works</li>
+<li>5. ABAC — concept <em>+ live coding</em></li>
+<li>6. AI Tools — concept <em>+ live coding</em></li>
 <li>7. Choosing the right model</li>
 </ul>
+
+<br>
+
+<span class="muted">Each block: explain → code together → demo.</span>
 
 ---
 
@@ -198,8 +202,8 @@ Today we'll build **access control** for an AI agent that manages invoices.
 
 ### Actors
 
-- **Boss Hoxha** — admin
-- **Carla, Marko** — accountant
+- **Sarah Chen** — admin
+- **Daniel, Marko** — accountant
 - **Alice, Ben, …** — employee
 - **AI agent** — acts on each user's behalf
 
@@ -229,7 +233,7 @@ Today we'll build **access control** for an AI agent that manages invoices.
 What should happen:
 
 - Login as **Alice (employee)** → sees only **her own** invoices (6 of 50)
-- Login as **Carla (accountant)** → sees **all** invoices including drafts
+- Login as **Daniel (accountant)** → sees **all** invoices including drafts
 - Login as **Boss (admin)** → full control... but not over everything
 - Agent commands → *"list invoices"*, *"monthly report"*, *"forward to accountant"*
 
@@ -373,6 +377,25 @@ That's the heart of RBAC.
 
 ---
 
+<!-- _class: lead -->
+
+## ☕ Live coding · RBAC
+
+<br>
+
+`git checkout main`
+
+<br>
+
+We fill in **TODO #1, #2, #3** in `src/auth/roles.ts`<br>
+and **TODO #5** in `src/composables/useAgent.ts`.
+
+<br>
+
+<span class="muted">After this: viewer can no longer delete anything.</span>
+
+---
+
 ## Does it scale?
 
 <br>
@@ -489,6 +512,21 @@ export function can(user: User, action: CanAction, invoice: Invoice | null): boo
 | Audit | Easy | Hard |
 | Best for | 90% of apps | Compliance, multi-tenant |
 | Evolution | Start here | Grow into it |
+
+---
+
+<!-- _class: lead -->
+
+## ☕ Live coding · ABAC
+
+<br>
+
+We fill in **TODO #4** in `src/auth/can.ts`.
+
+<br>
+
+Demo: Sarah (admin) tries to delete Alice's invoice →<br>
+**purple 🛡 ABAC chip** even for admin.
 
 ---
 
@@ -633,6 +671,21 @@ runTool(tool.name, args)
 
 ---
 
+<!-- _class: lead -->
+
+## ☕ Live coding · AI Tools
+
+<br>
+
+We fill in **TODO #6** in `src/auth/tools.ts`:<br>
+add `monthly_report` + `forward_report_to_accountant`.
+
+<br>
+
+<span class="muted">The LLM gets two new tools → demo next.</span>
+
+---
+
 ## Demo: monthly report → finance
 
 The scenario:
@@ -641,11 +694,11 @@ The scenario:
 2. *"Generate the report for March 2026"* → `monthly_report({ month: '2026-03' })`
 3. ABAC filters — she sees **only her own** invoices
 4. *"Forward it to the accountant"* → `forward_report_to_accountant({})`
-5. Email lands with Carla, who sees it in Outbox
+5. Email logs in Outbox **and** is sent live to Daniel via Resend
 
 <br>
 
-**Why can't Alice see Bob's invoices?**<br>
+**Why can't Alice see Ben's invoices?**<br>
 Because `can('read', 'Invoice', { created_by: alice.id })` is the rule.
 
 ---
@@ -673,15 +726,15 @@ Because `can('read', 'Invoice', { created_by: alice.id })` is the rule.
 
 <!-- _class: lead -->
 
-## The data lives in code now
+## What we built
 
 <br>
 
-`git checkout main`
+3 roles × 6 permissions × 6 tools · **two guards** · an AI agent that respects both.
 
 <br>
 
-<span class="muted">Let's build it together.</span>
+<span class="muted">~50 lines we wrote together.</span>
 
 ---
 

@@ -183,7 +183,7 @@ export function monthlyReport(args: { month?: string }): HandlerResult {
   }
 }
 
-export function forwardReportToAccountant(args: { month?: string }): HandlerResult {
+export async function forwardReportToAccountant(args: { month?: string }): Promise<HandlerResult> {
   if (!currentUser.value) return { ok: false, error: 'No current user.' }
   const month = args.month ?? lastReportMonth.value ?? new Date().toISOString().slice(0, 7)
   const accountant = users.value.find(u => u.role === 'accountant')
@@ -194,21 +194,41 @@ export function forwardReportToAccountant(args: { month?: string }): HandlerResu
   )
   const total = mine.reduce((s, i) => s + i.amount, 0)
   const paid = mine.filter(i => i.status === 'paid').reduce((s, i) => s + i.amount, 0)
-  const body =
+  const subject = `Monthly report — ${month} — ${currentUser.value.name}`
+  const text =
     `Hi ${accountant.name.split(' ')[0]},\n\n` +
     `Forwarding my report for ${month}.\n\n` +
     `Invoices: ${mine.length}\nTotal billed: $${total.toLocaleString()}\nPaid: $${paid.toLocaleString()}\n\n` +
     `Cheers,\n${currentUser.value.name}`
 
-  outbox.value.push({
-    at: new Date().toISOString(),
-    to: accountant.email,
-    subject: `Monthly report — ${month} — ${currentUser.value.name}`,
-    body,
-  })
-  return {
-    ok: true,
-    message: `Report ${month} forwarded to ${accountant.name} <${accountant.email}>`,
+  // Always log to the in-memory Outbox so the UI can show the email shape.
+  outbox.value.push({ at: new Date().toISOString(), to: accountant.email, subject, body: text })
+
+  // Best-effort real send via Resend (configured in vite.config.ts middleware).
+  try {
+    const r = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to: accountant.email, subject, text }),
+    })
+    const data = await r.json()
+    if (data.ok) {
+      return {
+        ok: true,
+        message:
+          `Report ${month} forwarded to ${accountant.name} <${accountant.email}> ` +
+          `(real email sent → ${data.forwardedTo}, id ${data.id})`,
+      }
+    }
+    return {
+      ok: true,
+      message: `Report ${month} queued in Outbox (Resend not configured: ${data.error})`,
+    }
+  } catch (err) {
+    return {
+      ok: true,
+      message: `Report ${month} queued in Outbox (network error: ${err instanceof Error ? err.message : String(err)})`,
+    }
   }
 }
 

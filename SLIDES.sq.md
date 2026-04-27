@@ -81,12 +81,16 @@ Sot do të ndërtojmë **kontroll qasjeje** për një agjent AI që menaxhon fat
 <ul class="agenda">
 <li>1. Autentikimi vs Autorizimi</li>
 <li>2. Project Overview — çfarë do të ndërtojmë</li>
-<li>3. RBAC — Role-Based Access Control</li>
+<li>3. RBAC — koncepti <em>+ live coding</em></li>
 <li>4. Ku RBAC thyhet</li>
-<li>5. ABAC — Attribute-Based Access Control</li>
-<li>6. AI Tools — si funksionon LLM tool-calling</li>
+<li>5. ABAC — koncepti <em>+ live coding</em></li>
+<li>6. AI Tools — koncepti <em>+ live coding</em></li>
 <li>7. Choosing the right model</li>
 </ul>
+
+<br>
+
+<span class="muted">Çdo bllok: shpjegim → kod së bashku → demo.</span>
 
 ---
 
@@ -199,8 +203,8 @@ Sot do të ndërtojmë **kontroll qasjeje** për një agjent AI që menaxhon fat
 
 ### Aktorët
 
-- **Boss Hoxha** — admin
-- **Carla, Marko** — accountant
+- **Sarah Chen** — admin
+- **Daniel, Marko** — accountant
 - **Alice, Ben, …** — employee
 - **Agjenti AI** — vepron për llogari të secilit
 
@@ -230,7 +234,7 @@ Sot do të ndërtojmë **kontroll qasjeje** për një agjent AI që menaxhon fat
 Çfarë duhet të ndodhë:
 
 - Login si **Alice (employee)** → sheh vetëm faturat **e veta** (6 nga 50)
-- Login si **Carla (accountant)** → sheh **të gjitha** faturat, përfshirë drafts
+- Login si **Daniel (accountant)** → sheh **të gjitha** faturat, përfshirë drafts
 - Login si **Boss (admin)** → kontroll i plotë... por jo në çdo gjë
 - Komandat e agjentit → *"list invoices"*, *"monthly report"*, *"forward to accountant"*
 
@@ -374,6 +378,25 @@ Ky është thelbi i RBAC-ut.
 
 ---
 
+<!-- _class: lead -->
+
+## ☕ Live coding · RBAC
+
+<br>
+
+`git checkout main`
+
+<br>
+
+Plotësojmë **TODO #1, #2, #3** te `src/auth/roles.ts`<br>
+dhe **TODO #5** te `src/composables/useAgent.ts`.
+
+<br>
+
+<span class="muted">Pas kësaj: viewer s'mund të fshijë gjë.</span>
+
+---
+
 ## A shkallëzohet?
 
 <br>
@@ -490,6 +513,21 @@ export function can(user: User, action: CanAction, invoice: Invoice | null): boo
 | Auditimi | I lehtë | I vështirë |
 | I mirë për | 90% të apps-ve | Pajtueshmëri, multi-tenant |
 | Evolucioni | Fillo këtu | Rrit kur të duhet |
+
+---
+
+<!-- _class: lead -->
+
+## ☕ Live coding · ABAC
+
+<br>
+
+Plotësojmë **TODO #4** te `src/auth/can.ts`.
+
+<br>
+
+Pastaj demo: Sarah (admin) provon të fshijë faturën e Aliçes →<br>
+**chip i purpurt 🛡 ABAC** edhe për admin-in.
 
 ---
 
@@ -634,6 +672,21 @@ runTool(tool.name, args)
 
 ---
 
+<!-- _class: lead -->
+
+## ☕ Live coding · AI Tools
+
+<br>
+
+Plotësojmë **TODO #6** te `src/auth/tools.ts`:<br>
+shtojmë `monthly_report` + `forward_report_to_accountant`.
+
+<br>
+
+<span class="muted">LLM-ja merr dy mjete të reja → demo në vijim.</span>
+
+---
+
 ## Demo: raporti mujor → financa
 
 Skenari:
@@ -642,11 +695,11 @@ Skenari:
 2. *"Më gjenero raportin për mars 2026"* → `monthly_report({ month: '2026-03' })`
 3. ABAC filtron — sheh **vetëm faturat e veta**
 4. *"Përcille te accountant-i"* → `forward_report_to_accountant({})`
-5. Email-i shkon te Carla, që e sheh në Outbox
+5. Email-i logohet në Outbox **dhe** dërgohet real-time te Daniel (përmes Resend)
 
 <br>
 
-**Pse Alice s'mund të shohë faturat e Bob-it?**<br>
+**Pse Alice s'mund të shohë faturat e Ben-it?**<br>
 Sepse `can('read', 'Invoice', { created_by: alice.id })` është rregulli.
 
 ---
@@ -674,15 +727,15 @@ Sepse `can('read', 'Invoice', { created_by: alice.id })` është rregulli.
 
 <!-- _class: lead -->
 
-## Të dhënat tani jane në kod
+## Çfarë ndërtuam
 
 <br>
 
-`git checkout main`
+3 role × 6 leje × 6 mjete · **dy guard-e** · një agjent AI që respekton të dyja.
 
 <br>
 
-<span class="muted">Le ta ndërtojmë bashkë.</span>
+<span class="muted">~50 rreshta që ne shkruam së bashku.</span>
 
 ---
 
