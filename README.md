@@ -103,7 +103,7 @@ Then ask the agent to *"list invoices"*, *"create an invoice for Acme for $1500"
 ## Branches
 
 - **`main`** — starter you clone for the lecture. Has 6 `LIVE-CODE` spots to fill in together.
-- **`solved`** — same app with everything filled in. `git checkout solved` if you fall behind.
+- **`solved`** — kept private by the lecturer. If the class falls behind during live coding, the lecturer will switch to it locally on the projector.
 
 ---
 

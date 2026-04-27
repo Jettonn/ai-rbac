@@ -94,6 +94,27 @@ Sot do të ndërtojmë **kontroll qasjeje** për një agjent AI që menaxhon fat
 
 ---
 
+## Klononi tani — duke folur, instaloni
+
+```bash
+git clone https://github.com/Jettonn/ai-rbac.git
+cd ai-rbac
+pnpm install
+cp .env.example .env
+pnpm dev      # → http://localhost:5173
+```
+
+<br>
+
+**OpenAI key (opsional):** do t'jua dërgoj në fund të ligjëratës përmes [yopass.se](https://yopass.se).<br>
+Pa key, fake-mode router e mban demo-n të gjallë.
+
+<br>
+
+<span class="muted">Filloni `pnpm install` tani — flasim 10 min, mbarojnë vetë.</span>
+
+---
+
 <!-- ═══════════════════════════════════════════════════════════════════════════
                     1. AUTHENTICATION vs AUTHORIZATION
 ══════════════════════════════════════════════════════════════════════════ -->
@@ -384,16 +405,16 @@ Ky është thelbi i RBAC-ut.
 
 <br>
 
-`git checkout main`
-
-<br>
-
 Plotësojmë **TODO #1, #2, #3** te `src/auth/roles.ts`<br>
 dhe **TODO #5** te `src/composables/useAgent.ts`.
 
 <br>
 
-<span class="muted">Pas kësaj: viewer s'mund të fshijë gjë.</span>
+<span class="muted">Pas kësaj: employee s'mund të aprovojë fatura.</span>
+
+<br>
+
+<span class="muted">Po s'e ke kloniuar ende? `git clone https://github.com/Jettonn/ai-rbac.git`</span>
 
 ---
 
@@ -743,7 +764,7 @@ Sepse `can('read', 'Invoice', { created_by: alice.id })` është rregulli.
 
 <br>
 
-**Repo**: [github.com/jetonkorenica/ai-rbac-lecture](https://github.com/jetonkorenica/ai-rbac-lecture)
+**Repo**: [github.com/Jettonn/ai-rbac](https://github.com/Jettonn/ai-rbac)
 
 <br>
 

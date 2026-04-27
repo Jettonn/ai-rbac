@@ -93,6 +93,27 @@ Today we'll build **access control** for an AI agent that manages invoices.
 
 ---
 
+## Clone now — install while we talk
+
+```bash
+git clone https://github.com/Jettonn/ai-rbac.git
+cd ai-rbac
+pnpm install
+cp .env.example .env
+pnpm dev      # → http://localhost:5173
+```
+
+<br>
+
+**OpenAI key (optional):** I'll share one at the end of the lecture via [yopass.se](https://yopass.se).<br>
+Without a key, the fake-mode router keeps the demo alive.
+
+<br>
+
+<span class="muted">Start `pnpm install` now — we'll talk for 10 min, it'll be done by then.</span>
+
+---
+
 <!-- ═══════════════════════════════════════════════════════════════════════════
                     1. AUTHENTICATION vs AUTHORIZATION
 ══════════════════════════════════════════════════════════════════════════ -->
@@ -383,16 +404,16 @@ That's the heart of RBAC.
 
 <br>
 
-`git checkout main`
-
-<br>
-
 We fill in **TODO #1, #2, #3** in `src/auth/roles.ts`<br>
 and **TODO #5** in `src/composables/useAgent.ts`.
 
 <br>
 
-<span class="muted">After this: viewer can no longer delete anything.</span>
+<span class="muted">After this: employees can no longer approve invoices.</span>
+
+<br>
+
+<span class="muted">Haven't cloned yet? `git clone https://github.com/Jettonn/ai-rbac.git`</span>
 
 ---
 
@@ -742,7 +763,7 @@ Because `can('read', 'Invoice', { created_by: alice.id })` is the rule.
 
 <br>
 
-**Repo**: [github.com/jetonkorenica/ai-rbac-lecture](https://github.com/jetonkorenica/ai-rbac-lecture)
+**Repo**: [github.com/Jettonn/ai-rbac](https://github.com/Jettonn/ai-rbac)
 
 <br>
 
