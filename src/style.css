@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+/* Tailwind v4 — enable dark variant via the `.dark` class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Custom design tokens — accessible via Tailwind utilities like bg-brand or text-accent. */
+@theme {
+  --color-brand-50:  #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+
+  --color-allow-bg:    #dcfce7;
+  --color-allow-text:  #166534;
+  --color-block-bg:    #fee2e2;
+  --color-block-text:  #991b1b;
+  --color-abac-bg:     #ede9fe;
+  --color-abac-text:   #6d28d9;
+
+  --font-sans: ui-sans-serif, -apple-system, "SF Pro Text", Inter, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+}
+
+html { font-family: var(--font-sans); }
+code, pre, .mono { font-family: var(--font-mono); }
